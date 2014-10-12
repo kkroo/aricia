@@ -1,0 +1,19 @@
+<div class="jumbotron text-center">
+	<h1>Swarm</h1>
+        <span>{{title}}</span>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3" ng-controller="SwarmController">
+            <d3-swarm data="d3Data" label="name" on-click="d3OnClick(item)"></d3-swarm>
+            <br>
+            <br>
+            <span>First Item</span>
+            <input type="text" ng-model="d3Data[0].score"></input>
+            <br>
+            <span>Second Item</span>
+            <input type="text" ng-model="d3Data[1].score"></input>
+            <br>
+            <span>Third Item</span>
+            <input type="text" ng-model="d3Data[2].score"></input>
+          </div>
+        </div>
+</div>

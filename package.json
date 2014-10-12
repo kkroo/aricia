@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "author": {
     "name": "Omar Ramadan",
-    "email": "omar.ramadan@berkeley.edu"
+    "email": "omar.ramadan93@gmail.com",
+    "url": "https://github.com/kkroo/"
   },
   "author": {
     "name": "Andy Coles",
@@ -18,9 +19,11 @@
   "main": "server.js",
   "dependencies": {
     "express" : "~4.5.1",
-	"mongoose" : "~3.8.0",
-	"body-parser" : "~1.4.2",
-	"method-override" : "~2.0.2"
+    "mongoose" : "~3.8.0",
+    "body-parser" : "~1.4.2",
+    "method-override" : "~2.0.2"
+  },
+  "devDependencies": {
   },
   "license": "MIT",
   "repository": {

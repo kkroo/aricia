@@ -1,5 +1,10 @@
-angular.module('NerdCtrl', []).controller('NerdController', function($scope) {
+(function () {
+  'use strict';
 
-	$scope.tagline = 'Nothing beats a pocket protector!';
+  angular.module('aricia.controllers')
+    .controller('NerdController', ['$scope', function($scope){
 
-});
+       $scope.tagline = 'Nothing beats a pocket protector!';
+    }]);
+
+}());

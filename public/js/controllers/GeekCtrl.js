@@ -1,5 +1,10 @@
-angular.module('GeekCtrl', []).controller('GeekController', function($scope) {
+(function () {
+  'use strict';
 
-	$scope.tagline = 'The square root of life is pi!';	
+  angular.module('aricia.controllers')
+    .controller('GeekController', ['$scope', function($scope){
 
-});
+      $scope.tagline = 'The square root of life is pi!';
+    }]);
+
+}());
