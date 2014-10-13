@@ -19,13 +19,11 @@
     app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 
     var server = http.createServer(app);
-    server.listen(8080, function(){
-      console.log("Express server listening on port " + app.get('port'));
-    });
+    server.listen(8080);
     var sio = io.listen(server);
     var webtorrent = new WebTorrent()
 
-    // socket.io 
+    // socket.io
     var clients = [];
     sio.sockets.on('connection', function(socket) {
       webtorrentSocket(socket, webtorrent.client)
@@ -35,7 +33,6 @@
 
 
 
-      console.log('Server started at http://localhost:8080');
-      console.log('Webtorrent is ' + webtorrent.client)
+    console.log('Server started at http://localhost:8080');
 
 }).call(this);

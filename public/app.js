@@ -9,15 +9,14 @@
     'aricia.services',
     'aricia.controllers',
     'aricia.directives'
-    ]).factory('webtorrent', function (socketFactory) {
-          var webtorrentSocket = socketFactory();
-          return webtorrentSocket
-      })
+    ])
 
   // setup dependency injection
   angular.module('d3', []);
+  angular.module('planetaryjs', []);
+  angular.module('topojson', []);
   angular.module('aricia.services', []);
   angular.module('aricia.controllers', []);
-  angular.module('aricia.directives', ['d3']);
+  angular.module('aricia.directives', ['d3', 'planetaryjs', 'topojson']);
 
 }());

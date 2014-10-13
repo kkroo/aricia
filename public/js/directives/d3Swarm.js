@@ -1,8 +1,8 @@
 (function () {
 
   angular.module('aricia.directives')
-    .directive('d3Swarm', ['$window', '$timeout', 'd3Service', 
-    function($window, $timeout, d3Service) {
+    .directive('d3Swarm', ['$window', '$timeout', 'd3Service', 'planetaryjsService', 'topojsonService',
+    function($window, $timeout, d3Service, planetaryjsService, topojsonService) {
       return {
         restrict: 'A',
         scope: {
@@ -11,87 +11,53 @@
         },
         link: function(scope, ele, attrs) {
           d3Service.d3().then(function(d3) {
+           topojsonService.topojson().then(function(topojson) {
+              planetaryjsService.planetaryjs().then(function(planetaryjs) {
+                var renderTimeout;
+                var margin = parseInt(attrs.margin) || 20,
+                    barHeight = parseInt(attrs.barHeight) || 20,
+                    barPadding = parseInt(attrs.barPadding) || 5;
 
-            var renderTimeout;
-            var margin = parseInt(attrs.margin) || 20,
-                barHeight = parseInt(attrs.barHeight) || 20,
-                barPadding = parseInt(attrs.barPadding) || 5;
+                var canvas = document.createElement('canvas')
+                ele[0].appendChild(canvas)
 
-            var svg = d3.select(ele[0])
-              .append('svg')
-              .style('width', '100%');
 
-            $window.onresize = function() {
-              scope.$apply();
-            };
+                $window.onresize = function() {
+                  scope.$apply();
+                };
 
-            scope.$watch(function() {
-              return angular.element($window)[0].innerWidth;
-            }, function() {
-              scope.render(scope.data);
-            });
+                scope.$watch(function() {
+                  return angular.element($window)[0].innerWidth;
+                }, function() {
+                  scope.render();
+                });
 
-            scope.$watch('data', function(newData) {
-              scope.render(newData);
-            }, true);
 
-            scope.render = function(data) {
-              svg.selectAll('*').remove();
+                scope.render = function() {
 
-              if (!data) return;
-              if (renderTimeout) clearTimeout(renderTimeout);
+                  if (renderTimeout) clearTimeout(renderTimeout);
 
-              renderTimeout = $timeout(function() {
-                var width = d3.select(ele[0]).node().offsetWidth - margin,
-                    height = scope.data.length * (barHeight + barPadding),
-                    color = d3.scale.category20(),
-                    xScale = d3.scale.linear()
-                      .domain([0, d3.max(data, function(d) {
-                        return d.score;
-                      })])
-                      .range([0, width]);
-
-                svg.attr('height', height);
-
-                svg.selectAll('rect')
-                  .data(data)
-                  .enter()
-                    .append('rect')
-                    .on('click', function(d,i) {
-                      return scope.onClick({item: d});
-                    })
-                    .attr('height', barHeight)
-                    .attr('width', 140)
-                    .attr('x', Math.round(margin/2))
-                    .attr('y', function(d,i) {
-                      return i * (barHeight + barPadding);
-                    })
-                    .attr('fill', function(d) {
-                      return color(d.score);
-                    })
-                    .on('click', function(d, i) {
-                      return scope.onClick({item: d});
-                    })
-                    .transition()
-                      .duration(1000)
-                      .attr('width', function(d) {
-                        return xScale(d.score);
-                      });
-                svg.selectAll('text')
-                  .data(data)
-                  .enter()
-                    .append('text')
-                    .attr('fill', '#fff')
-                    .attr('y', function(d,i) {
-                      return i * (barHeight + barPadding) + 15;
-                    })
-                    .attr('x', 15)
-                    .text(function(d) {
-                      return d.name + " (" + d.score + ")";
-                    });
-              }, 100);
-            };
-          });
-      }}
-  }])
+                  renderTimeout = $timeout(function() {
+                  console.log(topojson)
+                  console.log(d3)
+                  var planet = planetaryjs.planet();
+                  // Loading this plugin technically happens automatically,
+                  // but we need to specify the path to the `world-110m.json` file.
+                  planet.loadPlugin(planetaryjs.plugins.earth({
+                    topojson: { file: '/world-110m.json' }
+                  }));
+                  // Scale the planet's radius to half the canvas' size
+                  // and move it to the center of the canvas.
+                  planet.projection
+                    .scale(canvas.width / 2)
+                    .translate([canvas.width / 2, canvas.height / 2]);
+                  planet.draw(canvas);
+                  }, 100);
+                };
+              })
+            })
+          })
+        }
+      }
+    }])
 }());

@@ -1,1 +1,31 @@
 body { padding-top:30px; }
+
+.table {
+  display: table;
+  margin: 0px;
+  padding: 0px;
+}
+
+.tableRow {
+  display: table-row;
+}
+
+.tableRow > span {
+  list-style:none;
+  display: table-cell;
+  border: 1px solid #000;
+  padding: 2px 6px;
+}
+
+.tableHeader {
+  display: table-header-group;
+  /*position: absolute;*/
+}
+
+.tableHeader span {
+  background-color: #ccc;
+}
+
+.tableBody {
+  display: table-row-group;
+}

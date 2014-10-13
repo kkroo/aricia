@@ -4,6 +4,8 @@
 	"dependencies": {
 		"bootstrap": "latest",
 		"angular": "latest",
+		"topojson": "latest",
+                "planetary.js": "latest",
 		"angular-route": "latest",
                 "angular-socket-io": "latest"
 	}

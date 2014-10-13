@@ -1,10 +1,10 @@
 <div class="jumbotron text-center">
 	<h1>Demo with d3</h1>
         <span>{{title}}</span>
-        <div class="row" ng-controller="SwarmController">
+        <div class="row" ng-controller="MainController">
           <div class="columns large-12">
             <h3>Word frequency counts in the latest ESPN headlines</h3>
-            <div d3-swarm on-click="onClick(item)" data="data"></div>
+            <div d3-demo on-click="onClick(item)" data="data"></div>
           </div>
           <div class="columns large-12 small-12" ng-show="showDetailPanel">
             <h3>Details</h3>
