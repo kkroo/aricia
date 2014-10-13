@@ -6,6 +6,7 @@
           $scope.speed - 0
           $scope.link = ""
           $scope.files = []
+          $scope.data = 'blah'
 
           $scope.sizeOf = function(obj) {
               return Object.keys(obj).length;
