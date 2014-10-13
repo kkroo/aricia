@@ -1,5 +1,16 @@
 <div class="jumbotron text-center">
-	<h1>Home Page 4 Life</h1>
-
-	<p>{{ tagline }}</p>
+	<h1>Demo with d3</h1>
+        <span>{{title}}</span>
+        <div class="row" ng-controller="SwarmController">
+          <div class="columns large-12">
+            <h3>Word frequency counts in the latest ESPN headlines</h3>
+            <div d3-swarm on-click="onClick(item)" data="data"></div>
+          </div>
+          <div class="columns large-12 small-12" ng-show="showDetailPanel">
+            <h3>Details</h3>
+            <h4>Item: {{ detailItem.name }} appeared {{ detailItem.score}} times in the latest ESPN articles</h4>
+            <a ng-click="showDetailPanel=false">Hide</a>
+          </div>
+        </div>
 </div>
+

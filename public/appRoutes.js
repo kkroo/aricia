@@ -9,7 +9,7 @@
                     .when('/', {
                             templateUrl: 'views/home.html',
                             controller: 'MainController'	
-                    })                // home page
+                    })
 
                     .when('/nerds', {
                             templateUrl: 'views/nerd.html',
