@@ -1,3 +1,4 @@
+<!--
 <div class="jumbotron text-center">
 	<h1>Torrent Info</h1>
         <ul class="table">
@@ -60,4 +61,49 @@
           </div>
         </ul>
 </div>
-
+-->
+<div class="jumbotron text-center">
+  <div class="row">
+    <h2>Torrent Info</h2>
+    <table>
+      <tr>
+        <th>Torrent Name</th>
+        <th>Files</th>
+        <th>Stream</th>
+        <th>Swarm Size</th>
+        <th>Download Speed</th>
+      </tr>
+      <tr>
+        <td>{{ torrentName }}</td>
+        <td><span ng-repeat="file in files">{{file}}</span></td>
+        <td><a href="{{link}}">{{link}}</a></td>
+        <td>{{sizeof(peers)}} ( {{ countWires() }} )</td>
+        <td>{{ speed }} B/s</td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <h2>The Swarm</h2>
+    <div d3-swarm></div>   
+  </div>
+  <div class="row">
+    <table>
+      <tr>
+        <th>Connected</th>
+        <th>Address</th>
+        <th>Download Speed</th>
+        <th>Upload Speed</th>
+        <th>City</th>
+        <th>Lat, Long</th>
+      </tr>
+      <tr ng-repeat="(addr, peer) in peers">
+        <td>{{peer.handshaken}}</td>
+        <td>{{peer.addr}}</td>
+        <td>{{peer.downSpeed}} B/s down</td>
+        <td>{{peer.upSpeed}}  B/s up</td>
+        <td>{{peer.geodata.city}}, {{peer.geodata.region}} {{peer.geodata.country}}</td>
+        <td>{{peer.geodata.ll}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
