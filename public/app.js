@@ -17,6 +17,5 @@
   angular.module('topojson', []);
   angular.module('aricia.services', []);
   angular.module('aricia.controllers', []);
-  angular.module('aricia.directives', ['d3', 'planetaryjs', 'topojson', 'autocomplete']);
-
+  angular.module('aricia.directives', ['d3', 'planetaryjs', 'topojson', 'autocomplete', 'geolocation']);
 }());
