@@ -1,13 +1,8 @@
 body { padding-top:30px; }
 
 canvas {
-  top: 60px;
-  height: 600px;
-  width: 600px
-  left: 0;
-  right: 0;
-  bottom: 0px;
   cursor: move;
+  position: relative;
 }
 
 .table {
