@@ -1,25 +1,23 @@
-(function() {
+(function () {
+  'use strict';
+
   angular.module('aricia.controllers')
-    .controller('SearchController', ['torrentGetter', function($scope, torrentGetter) {
-      $scope.torrents = torrentGetter.getTorrents("...");
-      $scope.torrents.then(function(data){
-        $scope.torrents = data;
-      });
+    .controller('SearchController', ['$scope', function($scope, MovieRetriever) {
+        $scope.movies = ["Lord of the Rings",
+                        "Drive",
+                        "Science of Sleep",
+                        "Back to the Future",
+                        "Oldboy"];
 
-      $scope.getTorrents = function(){
-        return $scope.torrents;
-      }
-
-      $scope.doSomething = function(typedthings){
-        console.log("Do something like reload data with this: " + typedthings );
-        $scope.newTorrents = torrentGetter.getTorrents(typedthings);
-        $scope.newTorrents.then(function(data){
-          $scope.torrents = data;
-        });
-      }
-
-      $scope.doSomethingElse = function(suggestion){
-        console.log("Suggestion selected: " + suggestion );
-      }
+        // gives another movie array on change
+        $scope.updateMovies = function(typed){
+            // MovieRetriever could be some service returning a promise
+            $scope.newmovies = MovieRetriever.getmovies(typed);
+            $scope.newmovies.then(function(data){
+              $scope.movies = data;
+            });
+        }
     }]);
+
+
 }());
