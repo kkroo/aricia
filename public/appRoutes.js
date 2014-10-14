@@ -11,9 +11,9 @@
                             controller: 'MainController'	
                     })
 
-                    .when('/nerds', {
-                            templateUrl: 'views/nerd.html',
-                            controller: 'NerdController'
+                    .when('/video', {
+                            templateUrl: 'views/video.html',
+                            controller: 'VideoController'
                     })
 
                     .when('/geeks', {

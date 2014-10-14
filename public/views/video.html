@@ -1,0 +1,27 @@
+<div class="jumbotron text-center">
+  <div class="row">
+    <h2>Torrent Info</h2>
+    <table>
+      <tr>
+        <th>Torrent Name</th>
+        <th>Files</th>
+        <th>Stream</th>
+        <th>Swarm Size</th>
+        <th>Download Speed</th>
+      </tr>
+      <tr>
+        <td>{{ torrentName }}</td>
+        <td><span ng-repeat="file in files">{{file}}</span></td>
+        <td><a href="{{link}}">{{link}}</a></td>
+        <td>{{numQueued}}</td>
+        <td>{{ prettySpeed(speed) }}/s</td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <h2>Video Stream</h2>
+    <p ng-if="numQueued == 0">Please wait while we get a connection</p>
+    <video id="video" ng-show="numQueued" width="640" height="264" class="video-js vjs-default-skin" controls preload="auto"></video>
+    </div>
+  </div>
+</div>

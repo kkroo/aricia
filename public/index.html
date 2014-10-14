@@ -6,6 +6,7 @@
           <title>Starter Node and Angular</title>
 
           <!-- CSS -->
+          <link rel="stylesheet" href="libs/video.js/dist/video-js/video-js.css" rel="stylesheet">
           <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
           <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 
@@ -21,7 +22,7 @@
                     <ul class="nav navbar-nav">
                             <li><a href="/search">Search</a></li>
                             <li><a href="/swarm">Swarm</a></li>
-                            <li><a href="/nerds">Nerds</a></li>
+                            <li><a href="/video">Video</a></li>
                             <li><a href="/geeks">Geeks</a></li>
                     </ul>
             </nav>
@@ -30,15 +31,15 @@
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="libs/angular-socket-io/socket.min.js"></script>
     <script src="libs/topojson/topojson.js"></script>
+    <script src="libs/prettysize-bower/prettysize.js"></script>
     <script src="libs/d3/d3.min.js"></script>
-<<<<<<< HEAD
     <script src="libs/allmighty-autocomplete/script/autocomplete.js"></script>
     <script src="libs/allmighty-autocomplete/script/app.js"></script>
-=======
+    <script src="libs/video.js/dist/video-js/video.js"></script>
     <script src="libs/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
->>>>>>> 1c1b71b4610b4b4cab3284159ae7025e39c2ed2e
 
     <!-- ANGULAR CUSTOM -->
     <script src="socket.io/socket.io.js"></script> 
@@ -51,7 +52,7 @@
     <script src="js/controllers/SwarmCtrl.js"></script>
     <script src="js/controllers/SearchCtrl.js"></script>
     <script src="js/controllers/MainCtrl.js"></script>
-    <script src="js/controllers/NerdCtrl.js"></script>
+    <script src="js/controllers/VideoCtrl.js"></script>
     <script src="js/controllers/GeekCtrl.js"></script>
     <script src="js/directives/d3Demo.js"></script>
     <script src="js/directives/d3Swarm.js"></script>
