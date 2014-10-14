@@ -2,6 +2,7 @@
 	"name": "angular",
 	"version": "1.0.0",
 	"dependencies": {
+		"angularjs-geolocation": "latest",
 		"bootstrap": "latest",
 		"angular": "latest",
 		"topojson": "latest",

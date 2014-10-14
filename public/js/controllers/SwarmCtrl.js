@@ -6,7 +6,7 @@
           $scope.speed - 0
           $scope.link = ""
           $scope.files = []
-          $scope.data = 'blah'
+          $scope.numQueued = 0
 
           $scope.sizeOf = function(obj) {
               return Object.keys(obj).length;
@@ -19,12 +19,23 @@
               }, 0)
           }
 
+          $scope.filterConnected = function(peers) {
+            var connected = {}
+            angular.forEach(peers, function(peer, addr){
+              if (peer.handshaken) {
+                connected[addr] = peer
+              }
+            })
+            return connected
+          }
+
           function load(data){
-            $scope.peers = data.peers
-            $scope.torrentName = data.torrentName
-            $scope.files = data.files
-            $scope.link = data.link
-            $scope.speed = data.speed
+            Object.keys(data).forEach(function(key) {
+              if (data[key]){
+                console.log('setting ' + key)
+                $scope[key] = data[key]
+              }
+            })
           }
 
           function update(){
@@ -33,16 +44,12 @@
           }
 
           // Tell the server to send us data on page load
+          webtorrent.emit('init')
           webtorrent.on('info', load);
           $timeout(update, 1000)
 
-          // We got a peer (not actually connected necessarily)
-          webtorrent.on('peer-add', function (data) {
-            $scope.peers[data.addr] = data;
-          });
-
-          // Remove a peer
-          webtorrent.on('peer-remove', function (data) {
+          // Remove a wire
+          webtorrent.on('wire-destroy', function (data) {
             delete $scope.peers[data.addr]
           });
 

@@ -16,7 +16,7 @@ module.exports = function(socket, webtorrent) {
                return file.name
               }) : []
 
-    data = { peers: torrent.swarm._peers,
+    data = { numQueued: torrent.swarm.numQueued,
              speed: torrent.swarm.downloadSpeed(),
              torrentName: torrent.name,
              files: fileNames,
@@ -26,6 +26,20 @@ module.exports = function(socket, webtorrent) {
   }
 
   // Get what info we have on pageload (can be empty)
+  socket.on('init', function(){
+    socket.emit('info', {
+      peers: function(peers) {
+        var ret = {}
+        Object.keys(peers).forEach(function(addr){
+          var peer = peers[addr]
+          if (peer.handshaken) {
+            ret[addr] = peer
+          }
+        })
+      }(torrent.swarm._peers)
+    })
+  });
+
   socket.on('info', function(){
     socket.emit('info', info())
   });
@@ -35,18 +49,13 @@ module.exports = function(socket, webtorrent) {
     socket.emit('info', info());
   })
 
-  // We got a peer (not actually connected necessarily)
-  torrent.swarm.on('peer', function(peer) {
-    peer.on('destroy', function(){
-      socket.emit('peer-remove', peer)
-    })
-    socket.emit('peer-add', peer.toJSON())
-  })
-
   // We have shaken hands with a peer and are now connected
   torrent.swarm.on('wire', function(wire){
     wire.on('update', function(peer){
       socket.emit('wire', peer.toJSON())
+    })
+    wire.on('destroy', function(peer){
+      socket.emit('wire-destroy', peer.toJSON())
     })
   })
 

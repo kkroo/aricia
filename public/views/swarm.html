@@ -13,33 +13,33 @@
         <td>{{ torrentName }}</td>
         <td><span ng-repeat="file in files">{{file}}</span></td>
         <td><a href="{{link}}">{{link}}</a></td>
-        <td>{{sizeof(peers)}} ( {{ countWires() }} )</td>
-        <td>{{ speed }} B/s</td>
+        <td>{{numQueued}} ( {{ countWires() }} )</td>
+        <td>{{ speed }}/s</td>
       </tr>
     </table>
   </div>
   <div class="row">
     <h2>The Swarm</h2>
-    <div d3-swarm></div>   
+       <canvas data="peers" d3-swarm height="1000px" width="1000px"></canvas>
   </div>
-  <div class="row">
-    <table>
-      <tr>
-        <th>Connected</th>
-        <th>Address</th>
-        <th>Download Speed</th>
-        <th>Upload Speed</th>
-        <th>City</th>
-        <th>Lat, Long</th>
-      </tr>
-      <tr ng-repeat="(addr, peer) in peers">
-        <td>{{peer.handshaken}}</td>
-        <td>{{peer.addr}}</td>
-        <td>{{peer.downSpeed}} B/s down</td>
-        <td>{{peer.upSpeed}}  B/s up</td>
-        <td>{{peer.geodata.city}}, {{peer.geodata.region}} {{peer.geodata.country}}</td>
-        <td>{{peer.geodata.ll}}</td>
-      </tr>
-    </table>
-  </div>
+  <!-- <div class="row"> -->
+  <!--   <table> -->
+  <!--     <tr> -->
+  <!--       <th>Connected</th> -->
+  <!--       <th>Address</th> -->
+  <!--       <th>Download Speed</th> -->
+  <!--       <th>Upload Speed</th> -->
+  <!--       <th>City</th> -->
+  <!--       <th>Lat, Long</th> -->
+  <!--     </tr> -->
+  <!--     <tr ng-repeat="(addr, peer) in filterConnected(peers)"> -->
+  <!--       <td>{{peer.handshaken}}</td> -->
+  <!--       <td>{{peer.addr}}</td> -->
+  <!--       <td>{{peer.downSpeed}}/s down</td> -->
+  <!--       <td>{{peer.upSpeed}}/s up</td> -->
+  <!--       <td>{{peer.geodata.city}}, {{peer.geodata.region}} {{peer.geodata.country}}</td> -->
+  <!--       <td>{{peer.geodata.ll}}</td> -->
+  <!--     </tr> -->
+  <!--   </table> -->
+  <!-- </div> -->
 </div>

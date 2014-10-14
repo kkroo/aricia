@@ -18,6 +18,7 @@
   },
   "main": "server.js",
   "dependencies": {
+    "prettysize": "latest",
     "socket.io": "~1.1.0",
     "express" : "~4.5.1",
     "mongoose" : "~3.8.0",
