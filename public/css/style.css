@@ -35,6 +35,10 @@ canvas {
   display: table-row-group;
 }
 
+.videoPlayer {
+    width: 640px;
+    height: 360px;
+}
 /*new semtantic styles */
 .row {
   padding: 30px 0;

@@ -14,7 +14,7 @@
         <td><span ng-repeat="file in files">{{file}}</span></td>
         <td><a href="{{link}}">{{link}}</a></td>
         <td>{{numQueued}} ( {{ countWires() }} )</td>
-        <td>{{ speed }}/s</td>
+        <td>{{ prettySpeed(speed) }}/s</td>
       </tr>
     </table>
   </div>

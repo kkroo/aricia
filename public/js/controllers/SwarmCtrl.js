@@ -8,6 +8,10 @@
           $scope.files = []
           $scope.numQueued = 0
 
+          $scope.prettySpeed = function(bytes){
+            return prettysize(bytes)
+          }
+
           $scope.sizeOf = function(obj) {
               return Object.keys(obj).length;
           };
@@ -32,7 +36,6 @@
           function load(data){
             Object.keys(data).forEach(function(key) {
               if (data[key]){
-                console.log('setting ' + key)
                 $scope[key] = data[key]
               }
             })

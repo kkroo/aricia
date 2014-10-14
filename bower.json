@@ -3,10 +3,12 @@
 	"version": "1.0.0",
 	"dependencies": {
 		"angularjs-geolocation": "latest",
+		"angular-sanitize": "latest",
 		"bootstrap": "latest",
 		"angular": "latest",
 		"topojson": "latest",
                 "planetary.js": "latest",
+                "prettysize": "latest",
 		"angular-route": "latest",
                 "angular-socket-io": "latest"
 	}
