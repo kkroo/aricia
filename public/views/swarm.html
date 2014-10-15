@@ -7,20 +7,22 @@
         <th>Files</th>
         <th>Stream</th>
         <th>Swarm Size</th>
+        <th>Peers</th>
         <th>Download Speed</th>
       </tr>
       <tr>
         <td>{{ torrentName }}</td>
         <td><span ng-repeat="file in files">{{file}}</span></td>
         <td><a href="{{link}}">{{link}}</a></td>
-        <td>{{numQueued}} ( {{ countWires() }} )</td>
+        <td>{{numQueued}}</td>
+        <td>{{ size(peers) }} ({{size( filterConnected(peers) )}})</td>
         <td>{{ prettySpeed(speed) }}/s</td>
       </tr>
     </table>
   </div>
   <div class="row">
     <h2>The Swarm</h2>
-       <canvas data="peers" d3-swarm height="1000px" width="1000px"></canvas>
+       <div id="map" d3-swarm></div>
   </div>
   <!-- <div class="row"> -->
   <!--   <table> -->

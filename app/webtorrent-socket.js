@@ -27,17 +27,18 @@ module.exports = function(socket, webtorrent) {
 
   // Get what info we have on pageload (can be empty)
   socket.on('init', function(){
-    socket.emit('info', {
-      peers: function(peers) {
+    var data = info()
+    data.peers = (function(peers) {
         var ret = {}
         Object.keys(peers).forEach(function(addr){
           var peer = peers[addr]
-          if (peer.handshaken) {
+          if (peer.wire) {
             ret[addr] = peer
           }
         })
-      }(torrent.swarm._peers)
-    })
+      return ret
+      }(torrent.swarm._peers))
+    socket.emit('info', data)
   });
 
   socket.on('info', function(){
@@ -51,11 +52,12 @@ module.exports = function(socket, webtorrent) {
 
   // We have shaken hands with a peer and are now connected
   torrent.swarm.on('wire', function(wire){
+    socket.emit('wire', torrent.swarm._peers[wire.remoteAddress])
     wire.on('update', function(peer){
       socket.emit('wire', peer.toJSON())
     })
     wire.on('destroy', function(peer){
-      socket.emit('wire-destroy', peer.toJSON())
+      socket.emit('wire-destroy', wire.remoteAddress)
     })
   })
 
