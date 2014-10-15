@@ -1,16 +1,18 @@
 <div class="jumbotron text-center">
-	<h1>Demo with d3</h1>
-        <span>{{title}}</span>
-        <div class="row" ng-controller="MainController">
-          <div class="columns large-12">
-            <h3>Word frequency counts in the latest ESPN headlines</h3>
-            <div d3-demo on-click="onClick(item)" data="data"></div>
-          </div>
-          <div class="columns large-12 small-12" ng-show="showDetailPanel">
-            <h3>Details</h3>
-            <h4>Item: {{ detailItem.name }} appeared {{ detailItem.score}} times in the latest ESPN articles</h4>
-            <a ng-click="showDetailPanel=false">Hide</a>
-          </div>
-        </div>
-</div>
-
+  <h1>Set Torrent Magnet:</h1>
+  <div class="row">
+    <form name="torrent-select" ng-submit="submit()" ng-controller="MainController">
+      <label>Magnet</label>
+        <input type="text" name="input" ng-model="link"
+      required ng-trim="true">
+      <span ng-show="torrent-select.input.$error.pattern">
+        Magnet links only!</span>
+      <input type="submit" id="submit" value="Click to load" />
+    </form>
+  </div>
+  <div class="row">
+    <h3>Sample magnet</h3>
+      <ul>
+        <li><a href="http://www.imdb.com/title/tt0032553/">The Great Dictator</a>: magnet:?xt=urn:btih:cab643475b478d9fa447ca85b87fa83c3914a197</li>
+      </ul>
+    </div>

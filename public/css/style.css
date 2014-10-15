@@ -103,6 +103,12 @@ table tr:nth-child(odd) {
 
 
 .point {
+  cursor: pointer;
+  fill: #ff0;
+}
+
+.point-connected {
+  cursor: pointer;
   fill: #0f0;
 }
 

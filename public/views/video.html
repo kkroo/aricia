@@ -5,14 +5,12 @@
       <tr>
         <th>Torrent Name</th>
         <th>Files</th>
-        <th>Stream</th>
         <th>Swarm Size</th>
         <th>Download Speed</th>
       </tr>
       <tr>
         <td>{{ torrentName }}</td>
-        <td><span ng-repeat="file in files">{{file}}</span></td>
-        <td><a href="{{link}}">{{link}}</a></td>
+        <td><ul><li ng-repeat="file in files">{{file}}</li></ul></td>
         <td>{{numQueued}}</td>
         <td>{{ prettySpeed(speed) }}/s</td>
       </tr>

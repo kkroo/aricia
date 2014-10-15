@@ -1,29 +1,50 @@
 <div class="jumbotron text-center">
-  <div class="row">
+  <div class="row" ng-if="!magnetLink">
+    <h1>Go to the first page and load a magnet</h1>
+  </div>
+  <div class="row" ng-if="magnetLink && !torrentName">
+    <h1>Please wait, torrent metadata is loading</h1>
+  </div>
+  <div ng-show="magnetLink" class="row">
     <h2>Torrent Info</h2>
     <table>
       <tr>
         <th>Torrent Name</th>
         <th>Files</th>
-        <th>Stream</th>
         <th>Swarm Size</th>
         <th>Peers</th>
         <th>Download Speed</th>
       </tr>
       <tr>
         <td>{{ torrentName }}</td>
-        <td><span ng-repeat="file in files">{{file}}</span></td>
-        <td><a href="{{link}}">{{link}}</a></td>
+        <td><ul><li ng-repeat="file in files">{{file}}</li></ul></td>
         <td>{{numQueued}}</td>
         <td>{{ size(peers) }} ({{size( filterConnected(peers) )}})</td>
         <td>{{ prettySpeed(speed) }}/s</td>
       </tr>
     </table>
   </div>
-  <div class="row">
+  <div ng-show="magnetLink" class="row">
     <h2>The Swarm</h2>
        <div id="map" d3-swarm></div>
   </div>
+  <div class="columns large-12 small-12" ng-show="showDetailPanel">
+    <h3>Details</h3>
+    <h4>Address: {{ selectedPeerAddr }}</h4>
+    <h4>Location: 
+      <span ng-show="peers[selectedPeerAddr].geodata.city">{{peers[selectedPeerAddr].geodata.city}}, </span>
+      <span ng-show="peers[selectedPeerAddr].geodata.region">{{peers[selectedPeerAddr].geodata.region}}, </span>
+      <span ng-show="peers[selectedPeerAddr].geodata.country">{{peers[selectedPeerAddr].geodata.country}}</span>
+    </h4>
+    <h4 ng-show="peers[selectedPeerAddr].id">Client: {{ peers[selectedPeerAddr].id.client }}</h4>
+    <h4>Speed: {{ prettySpeed(peers[selectedPeerAddr].downSpeed) }}/s down, {{ prettySpeed(peers[selectedPeerAddr].upSpeed) }}/s up</h4>
+    <h4>Max Speed: {{ prettySpeed(peers[selectedPeerAddr].maxDownSpeed) }}/s down, {{ prettySpeed(peers[selectedPeerAddr].maxUpSpeed) }}/s up</h4>
+    <a ng-click="showDetailPanel=false">Hide</a>
+  </div>
+  <br />
+  <br />
+  <p ng-show="magnetLink">If no map interactions show up after the torrent has started downloading, click the "Video" link at the top and come back to the "Swarm" page</p>
+
   <!-- <div class="row"> -->
   <!--   <table> -->
   <!--     <tr> -->

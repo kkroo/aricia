@@ -6,6 +6,7 @@
       var renderTimeout;
       return {
         restrict: 'A',
+        trasclude: true,
         link: function(scope, ele, attrs) {
           d3Service.d3().then(function(d3) {
            topojsonService.topojson().then(function(topojson) {
@@ -74,17 +75,19 @@
 
              geolocation.getLocation().then(function(data){
                myLoc = [data.coords.longitude, data.coords.latitude];
-               var point = svg.insert("path", ".foreground")
+               projection.rotate([- data.coords.longitude, - data.coords.latitude]);
+               svg.selectAll("path").attr("d", path)
+               var point = svg.insert("path")
                  .datum({type: "Point", coordinates: myLoc})
                  .attr("class", "self")
                  .attr("d", path);
                init()
+
              });
 
              function init() {
                d3.selectAll('.arc').remove()
                d3.selectAll('.point').remove()
-               console.log('init with ' + Object.keys(scope.peers).length)
                Object.keys(scope.peers).forEach(function(addr){
                  var peer = scope.peers[addr]
                  addPeer(svg, path, peer)
@@ -94,11 +97,15 @@
              function addPeer(svg, path, peer){
                removePeer(peer.addr)
                var coord = [peer.geodata.ll[1], peer.geodata.ll[0]]
-               var point = svg.insert("path", ".foreground")
+               var peerId = peer.addr.replace(/\.|:/g, "-")
+               var point = svg.insert("path", ".self")
                .datum({type: "Point", coordinates: coord})
-               .attr("class", "point")
-               .attr("id", 'point' + peer.addr.replace(/\.|:/g, "-"))
-               .attr("d", path);
+               .attr("class", ((peer.unchoked) ? "point-connected" : "point"))
+               .attr("id", 'point-' + peerId)
+               .attr("d", path)
+               .on("click", function() {
+                 return scope.onClick(peer.addr);
+               });
 
                if (myLoc && peer.unchoked){
                  var arc = svg.insert("path", ".foreground")
@@ -107,14 +114,15 @@
                    .attr("style", function () {
                      var time = 1024 * 1024 / peer.downSpeed
                      return "-webkit-animation: dash " + time + "s linear infinite"})
-                   .attr("id", 'arc' + peer.addr.replace(/\.|:/g, "-"))
+                   .attr("id", 'arc-' + peerId)
                    .attr("d", path);
                }
              }
 
              function removePeer(addr) {
-               d3.select("#point" + addr.replace(/\.|:/g, "-")).remove()
-               d3.select("#arc" + addr.replace(/\.|:/g, "-")).remove()
+               var peerId = addr.replace(/\.|:/g, "-")
+               d3.select("#point-" + peerId).remove()
+               d3.select("#arc-" + peerId).remove()
              }
 
              function drawMap(svg, path, mousePoint) {
@@ -140,13 +148,11 @@
              }
 
              function orthographicProjection(width, height) {
+               // return d3.geo.equirectangular()
+               //        .precision(.1);
                return d3.geo.orthographic()
-                       .precision(.5)
                        .clipAngle(90)
                        .clipExtent([[-1, -1], [width + 1, height + 1]])
-                       .translate([width / 2, height / 2])
-                       .scale(width / 2 - 10)
-                       .rotate([0, -30]);
              }
 
              scope.$on('peer', function(event, peer) {

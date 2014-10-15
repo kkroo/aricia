@@ -3,10 +3,12 @@
     .controller('SwarmController', function($scope, $timeout, webtorrent) {
           $scope.peers = {}
           $scope.torrentName = ""
-          $scope.speed - 0
+          $scope.speed = 0
+          $scope.magnetLink = ""
           $scope.link = ""
           $scope.files = []
           $scope.numQueued = 0
+          $scope.numPieces = 0
           var init = false
 
           $scope.prettySpeed = function(bytes){
@@ -23,6 +25,14 @@
               }, 0)
           }
 
+          $scope.onClick = function(addr) {
+            $scope.$apply(function() {
+              if (!$scope.showDetailPanel)
+                $scope.showDetailPanel = true;
+              $scope.selectedPeerAddr = addr;
+            });
+          };
+
           $scope.filterConnected = function(peers) {
             var connected = {}
             angular.forEach(peers, function(peer, addr){
@@ -34,6 +44,7 @@
           }
 
           function load(data){
+            if (!data) return
             Object.keys(data).forEach(function(key) {
               if (data[key]){
                 $scope[key] = data[key]
@@ -57,7 +68,6 @@
 
           // Remove a wire
           webtorrent.on('wire-destroy', function (addr) {
-            console.log('destroy called')
             delete $scope.peers[addr]
             $scope.$emit('peer-remove', addr)
           });
