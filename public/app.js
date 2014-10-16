@@ -13,10 +13,9 @@
 
   // setup dependency injection
   angular.module('d3', []);
-  angular.module('planetaryjs', []);
   angular.module('topojson', []);
   angular.module('autocomplete', []);
   angular.module('aricia.services', []);
   angular.module('aricia.controllers', []);
-  angular.module('aricia.directives', ['d3', 'planetaryjs', 'topojson', 'autocomplete', 'geolocation']);
+  angular.module('aricia.directives', ['d3', 'topojson', 'geolocation']);
 }());

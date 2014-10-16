@@ -58,4 +58,68 @@ table tr:nth-child(odd) {
   background-color: #d9d9d9;
 }
 
+#map {
+  width: 100%;
+  margin: 0 auto;
+}
 
+.foreground {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+  pointer-events: all;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+.foreground.zooming {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+.graticule {
+  fill: none;
+  stroke: #636B62;
+  stroke-width: .5px;
+  stroke-dasharray: 2,2;
+}
+
+.land {
+  fill: #69D2E7;
+  stroke: none;
+}
+
+
+.mesh {
+  stroke: #50576A;
+  stroke-width: .5px;
+  fill: none;
+}
+
+
+.point {
+  cursor: pointer;
+  fill: #ff0;
+}
+
+.point-connected {
+  cursor: pointer;
+  fill: #0f0;
+}
+
+.self {
+  fill: #f0f;
+}
+
+.arc{
+  fill: none;
+  stroke-width: 1px;
+  stroke: #f00;
+  stroke-dasharray: 10 10
+}
+
+@-webkit-keyframes dash {
+  to {
+    stroke-dashoffset: 1024;
+  }
+}

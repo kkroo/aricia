@@ -1,23 +1,12 @@
 (function () {
   'use strict';
-
   angular.module('aricia.controllers')
-    .controller('SearchController', ['$scope', function($scope, MovieRetriever) {
-        $scope.movies = ["Lord of the Rings",
-                        "Drive",
-                        "Science of Sleep",
-                        "Back to the Future",
-                        "Oldboy"];
-
-        // gives another movie array on change
-        $scope.updateMovies = function(typed){
-            // MovieRetriever could be some service returning a promise
-            $scope.newmovies = MovieRetriever.getmovies(typed);
-            $scope.newmovies.then(function(data){
-              $scope.movies = data;
-            });
-        }
-    }]);
-
-
+    .controller('SearchController', function($scope, dataFactory) {
+    dataFactory.get('states.json').then(function(data) {
+      $scope.items = data;
+    });
+    $scope.name = ''; // This will hold the selected item
+    $scope.onItemSelected = function() { // this gets executed when an item is selected
+      console.log('selected=' + $scope.name);
+    };
 }());
