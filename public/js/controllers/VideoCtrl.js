@@ -1,13 +1,8 @@
 (function () {
   angular.module('aricia.controllers')
-    .controller('VideoController', 
+    .controller('VideoController',
     function($scope, $timeout, $sce, webtorrent) {
-          $scope.torrentName = ""
-          $scope.speed - 0
-          $scope.link = ""
-          $scope.files = []
-          $scope.numQueued = 0
-          var loaded = false
+          $scope.video = null
 
           function load(data){
             Object.keys(data).forEach(function(key) {
@@ -15,27 +10,33 @@
                 $scope[key] = data[key]
               }
             })
-            if (!loaded && data.numQueued && data.link) {
-              video.src({src: data.link, type: "video/mp4"})
-              console.log(data.link)
-              loaded = true
+          }
+
+          $scope.video = videojs('video')
+
+          $scope.init = function() {
+            if ($scope.link){
+              $scope.video.src({ type: "video/mp4", src: $scope.link})
+              $scope.video.load()
             }
           }
 
-          function update(){
-            webtorrent.emit('info')
-            $timeout(update, 1000)
-          }
-
-          var video = videojs('video').ready(function(){
-            loaded = false
-            webtorrent.emit('init')
-            webtorrent.on('info', load);
-            $timeout(update, 1000)
+          $scope.$watch('link', function(){
+            if ($scope.video){
+              $scope.init()
+            }
           })
+
+          $scope.$on("$destroy", function() {
+            $scope.video.dispose()
+          });
 
           $scope.prettySpeed = function(bytes){
             return prettysize(bytes)
           }
+
+          webtorrent.on('info', load);
+          $scope.init()
+
       })
 }());

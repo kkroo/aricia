@@ -9,7 +9,7 @@
           $scope.files = []
           $scope.numQueued = 0
           $scope.numPieces = 0
-          var init = false
+          $scope.init = false
 
           $scope.prettySpeed = function(bytes){
             return prettysize(bytes)
@@ -50,9 +50,9 @@
                 $scope[key] = data[key]
               }
             })
-            if (!init){
+            if (!$scope.init){
               $scope.$emit('init')
-              init = true
+              $scope.init = true
             }
           }
 

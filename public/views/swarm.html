@@ -24,14 +24,11 @@
       </tr>
     </table>
   </div>
-  <div ng-show="magnetLink" class="row">
+  <div ng-if="numQueued" class="row">
     <h2>The Swarm</h2>
-<<<<<<< HEAD
-       <canvas data="peers" d3-swarm width="700" height="700" style="width: 350px; height: 350px;"></canvas>
-=======
        <div id="map" d3-swarm></div>
   </div>
-  <div class="columns large-12 small-12" ng-show="showDetailPanel">
+  <div class="columns large-12 small-12" ng-if="showDetailPanel">
     <h3>Details</h3>
     <h4>Address: {{ selectedPeerAddr }}</h4>
     <h4>Location: 
@@ -43,12 +40,9 @@
     <h4>Speed: {{ prettySpeed(peers[selectedPeerAddr].downSpeed) }}/s down, {{ prettySpeed(peers[selectedPeerAddr].upSpeed) }}/s up</h4>
     <h4>Max Speed: {{ prettySpeed(peers[selectedPeerAddr].maxDownSpeed) }}/s down, {{ prettySpeed(peers[selectedPeerAddr].maxUpSpeed) }}/s up</h4>
     <a ng-click="showDetailPanel=false">Hide</a>
->>>>>>> 4088497efcdf9c718cbc9d15eaab2fb4707ac212
   </div>
   <br />
   <br />
-  <p ng-show="magnetLink">If no map interactions show up after the torrent has started downloading, click the "Video" link at the top and come back to the "Swarm" page</p>
-
   <!-- <div class="row"> -->
   <!--   <table> -->
   <!--     <tr> -->

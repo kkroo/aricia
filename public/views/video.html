@@ -16,9 +16,10 @@
       </tr>
     </table>
   </div>
-  <div class="row">
+  <div class="row" align="center">
     <h2>Video Stream</h2>
     <p ng-if="numQueued == 0">Please wait while we get a connection</p>
+    <p ng-if="numQueued">This is the stream: <a href="{{link}}">{{link}}</a></p>
     <video id="video" ng-show="numQueued" width="640" height="264" class="video-js vjs-default-skin" controls preload="auto"></video>
     </div>
   </div>

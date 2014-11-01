@@ -21,8 +21,8 @@ module.exports = function(socket, webtorrent) {
   }
 
   function init(){
-    if (!torrent) return {}
-      var data = info()
+    if (!torrent) return
+    var data = info()
     data.peers = (function(peers) {
       var ret = {}
       Object.keys(peers).forEach(function(addr){
@@ -33,17 +33,18 @@ module.exports = function(socket, webtorrent) {
       })
       return ret
     }(torrent.swarm._peers))
+    return data
   }
 
   // Get what info we have on pageload (can be empty)
   socket.on('init', function(){
-    if (!torrent) return {}
+    if (!torrent) return
     socket.emit('info', init());
   })
 
 
   socket.on('info', function(){
-    if (!torrent) return {}
+    if (!torrent) return
     socket.emit('info', info())
   });
 

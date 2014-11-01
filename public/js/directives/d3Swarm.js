@@ -7,6 +7,7 @@
       return {
         restrict: 'A',
         trasclude: true,
+        controller: 'SwarmController',
         link: function(scope, ele, attrs) {
           d3Service.d3().then(function(d3) {
            topojsonService.topojson().then(function(topojson) {
@@ -61,6 +62,7 @@
               // }
 
              d3.json("libs/world-110m.json", function(err, world, data){
+               if (err) console.log('err' + err)
                land = topojson.feature(world, world.objects.land)
                countries = topojson.mesh(world, world.objects.countries)
                svg.insert("path", ".foreground")
@@ -71,6 +73,7 @@
                .datum(countries)
                .attr("class", "mesh")
                .attr("d", path);
+               scope.$on('init', init)
              });
 
              geolocation.getLocation().then(function(data){
@@ -158,8 +161,6 @@
              scope.$on('peer', function(event, peer) {
                addPeer(svg, path, peer)
              })
-
-             scope.$on('init', init)
 
              scope.$on('peer-remove'), function(event, addr){
                removePeer(addr)
